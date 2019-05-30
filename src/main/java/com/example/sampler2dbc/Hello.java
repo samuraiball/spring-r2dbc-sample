@@ -4,20 +4,25 @@ import java.io.Serializable;
 
 public class Hello implements Serializable {
 
-	private String hello;
+    private String hello;
 
-	Hello(){
-	}
+    Hello() {
+    }
 
-	public Hello(String hello){
-		this.hello = hello;
-	}
+    public Hello(String hello) {
+        this.hello = hello;
+    }
 
-	public String getHello() {
-		return hello;
-	}
+    public String getHello() {
+        return hello;
+    }
 
-	public void setHello(String hello) {
-		this.hello = hello;
-	}
+    public void setHello(String hello) {
+        this.hello = hello;
+    }
+
+    @Override
+        public String toString() {
+        return this.hello;
+    }
 }

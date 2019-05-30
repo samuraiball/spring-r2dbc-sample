@@ -13,25 +13,28 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 public class HelloR2DBCHandler {
 
-	private final DatabaseClient dbClient;
-	private final TransactionalOperator tsOperator;
+    private final DatabaseClient dbClient;
+    private final TransactionalOperator tsOperator;
 
-	public HelloR2DBCHandler(DatabaseClient dbClient, TransactionalOperator tsOperator) {
-		this.dbClient = dbClient;
-		this.tsOperator = tsOperator;
-	}
+    public HelloR2DBCHandler(DatabaseClient dbClient, TransactionalOperator tsOperator) {
+        this.dbClient = dbClient;
+        this.tsOperator = tsOperator;
+    }
 
-	Mono<ServerResponse> hello(ServerRequest req) {
-		final Flux<Hello> helloes = dbClient.select()
-				.from(Hello.class)
-				.as(Hello.class)
-				.all();
-		return ok().body(helloes, Hello.class);
-	}
+    Mono<ServerResponse> hello(ServerRequest req) {
 
-	public RouterFunction<ServerResponse> routes() {
-		return route()
-				.GET("/hello", this::hello)
-				.build();
-	}
+        final Flux<String> helloes = dbClient
+                .execute()
+                .sql("SELECT hello FROM hello")
+                .map((row, rowMetadata) -> row.get("hello", String.class))
+                .all();
+
+        return ok().body(helloes, String.class);
+    }
+
+    public RouterFunction<ServerResponse> routes() {
+        return route()
+                .GET("/hello", this::hello)
+                .build();
+    }
 }
