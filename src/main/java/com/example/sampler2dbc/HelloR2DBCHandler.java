@@ -23,14 +23,14 @@ public class HelloR2DBCHandler {
 
     Mono<ServerResponse> hello(ServerRequest req) {
 
-        final Flux<String> helloes = dbClient
-                .execute()
-                .sql("SELECT hello FROM hello")
+        final Flux<String> all = dbClient
+                .execute("SELECT hello FROM hello_world")
                 .map((row, rowMetadata) -> row.get("hello", String.class))
                 .all();
 
-        return ok().body(helloes, String.class);
+        return ok().body(all, String.class);
     }
+
 
     public RouterFunction<ServerResponse> routes() {
         return route()
