@@ -12,27 +12,26 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SampleR2dbcApplicationTests {
 
-    @LocalServerPort
-    int port;
+	@LocalServerPort
+	int port;
 
-    WebTestClient webTestClient;
+	WebTestClient webTestClient;
 
-    @Before
-    public void before() {
-        this.webTestClient = WebTestClient.bindToServer()
-                .baseUrl("http://localhost:" + port)
-                .build();
-    }
+	@Before
+	public void before() {
+		this.webTestClient = WebTestClient.bindToServer()
+				.baseUrl("http://localhost:" + port)
+				.build();
+	}
 
 
-    @Test
-    public void testMessage() throws Exception {
+	@Test
+	public void testMessage() throws Exception {
 
-        this.webTestClient.get()
-            .uri("/hello")
-            .exchange()
-            .expectStatus().isOk()
-            .expectBody(String.class).isEqualTo("Hello, world!Bonjour, monde!Hola, mundo!Olá, mundo!こんにちは、世界！");
-    }
-
+		this.webTestClient.get()
+				.uri("/hello")
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody(String.class).isEqualTo("Hello, world!Bonjour, monde!Hola, mundo!Olá, mundo!こんにちは、世界！");
+	}
 }
