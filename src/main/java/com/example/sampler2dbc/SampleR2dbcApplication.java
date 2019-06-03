@@ -13,6 +13,10 @@ import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 
+/**
+ * mainクラス
+ * @author hirooka
+ */
 @SpringBootApplication
 public class SampleR2dbcApplication implements ApplicationContextInitializer<GenericApplicationContext> {
 

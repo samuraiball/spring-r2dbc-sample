@@ -2,6 +2,10 @@ package com.example.sampler2dbc;
 
 import java.io.Serializable;
 
+/**
+ * Helloクラス
+ * @author hirooka
+ */
 public class HelloWorld implements Serializable {
 
 	private String id;
