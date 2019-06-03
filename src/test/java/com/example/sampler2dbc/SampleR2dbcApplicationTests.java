@@ -24,10 +24,8 @@ public class SampleR2dbcApplicationTests {
 				.build();
 	}
 
-
 	@Test
-	public void testMessage() throws Exception {
-
+	public void testHello() throws Exception {
 		this.webTestClient.get()
 				.uri("/hello")
 				.exchange()
