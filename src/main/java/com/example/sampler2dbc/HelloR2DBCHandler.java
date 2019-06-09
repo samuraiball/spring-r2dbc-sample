@@ -11,6 +11,10 @@ import reactor.core.publisher.Mono;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
+/**
+ * Helloハンドラークラス
+ * @author hirooka
+ */
 public class HelloR2DBCHandler {
 
 	private final DatabaseClient dbClient;

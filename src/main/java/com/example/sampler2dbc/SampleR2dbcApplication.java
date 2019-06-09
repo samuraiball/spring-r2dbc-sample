@@ -13,6 +13,10 @@ import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.reactive.TransactionalOperator;
 import org.springframework.web.reactive.function.server.RouterFunction;
 
+/**
+ * mainクラス
+ * @author hirooka
+ */
 @SpringBootApplication
 public class SampleR2dbcApplication implements ApplicationContextInitializer<GenericApplicationContext> {
 
@@ -22,6 +26,7 @@ public class SampleR2dbcApplication implements ApplicationContextInitializer<Gen
 
 	@Override
 	public void initialize(GenericApplicationContext context) {
+		// DBの設定
 		context.registerBean(ConnectionFactory.class, () ->
 				new PostgresqlConnectionFactory(
 						PostgresqlConnectionConfiguration.builder()
@@ -29,15 +34,14 @@ public class SampleR2dbcApplication implements ApplicationContextInitializer<Gen
 								.database("postgres")
 								.username("postgres")
 								.password("pass").build()));
-
 		context.registerBean(DatabaseClient.class,
 				() -> DatabaseClient.create(context.getBean(ConnectionFactory.class)));
-
 		context.registerBean(ReactiveTransactionManager.class,
 				() -> new R2dbcTransactionManager(context.getBean(ConnectionFactory.class)));
 		context.registerBean(TransactionalOperator.class,
 				() -> TransactionalOperator.create(context.getBean(ReactiveTransactionManager.class)));
 
+		// ハンドラーの設定
 		context.registerBean(HelloR2DBCHandler.class);
 		context.registerBean(RouterFunction.class,
 				() -> context.getBean(HelloR2DBCHandler.class).routes());
