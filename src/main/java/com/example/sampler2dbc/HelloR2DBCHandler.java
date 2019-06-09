@@ -22,13 +22,12 @@ public class HelloR2DBCHandler {
 	}
 
 	Mono<ServerResponse> hello(ServerRequest req) {
-
-		final Flux<String> all = dbClient
-				.execute("SELECT hello FROM hello_world")
-				.map((row, rowMetadata) -> row.get("hello", String.class))
+		final Flux<HelloWorld> all = dbClient
+				.select()
+				.from(HelloWorld.class)
+				.as(HelloWorld.class)
 				.all();
-
-		return ok().body(all, String.class);
+		return ok().body(all, HelloWorld.class);
 	}
 
 
